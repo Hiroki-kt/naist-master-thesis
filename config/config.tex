@@ -1,0 +1,50 @@
+\documentclass[12pt]{jarticle} % Japanese
+%\documentclass[12pt]{article} % English
+% if there are problems in the above regarding fonts, use this
+% \documentclass[UTF8]{ctexart}
+\usepackage[utf8]{inputenc}
+%\usepackage{utf}
+\usepackage{naist-jmthesis} %Japanese
+%\usepackage{naist-mthesis} %English
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{cite}
+
+\renewcommand{\figurename}{Fig.}
+\renewcommand{\tablename}{Table}
+
+\usepackage[ipaex]{pxchfon}
+% \usepackage{subcaption}
+\usepackage{subfigure}
+\usepackage{url}
+\usepackage{import}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{here}
+
+\newcommand{\ctext}[1]{\raise0.2ex\hbox{\textcircled{\scriptsize{#1}}}}
+\newcommand\figref[1]{Fig.~\ref{fig:#1}}
+\newcommand\tabref[1]{Table~\ref{tab:#1}}
+\newcommand\secref[1]{第~\ref{sec:#1}節}
+\newcommand\chapref[1]{第~\ref{chap:#1}章}
+\newcommand\equref[1]{式~（\ref{eq:#1}）}
+\newcommand{\mysection}[1]{\vspace{-10pt}\section{#1}}
+\newcommand{\mysubsection}[1]{\vspace{-4pt}\subsection{#1}}
+
+\renewcommand{\thefootnote}{※}
+
+% \makeatletter
+%  \renewcommand{\@cite}[2]{\leavevmode%
+%  \hbox{$^{\mbox{\the\scriptfont0 #1}}$}}
+% \makeatother
+\makeatletter       % changes [1] to 1) in bibliography
+ \renewcommand{\@biblabel}[1]{#1)}
+\makeatother
+
+\makeatletter
+\renewcommand\section{\@startsection {section}{1}%
+{\z@}%
+{-3.5ex \@plus -1ex \@minus -.2ex}%
+{2.3ex \@plus.2ex}%
+{\normalfont\Large\bfseries}}
+ \makeatother
+ 

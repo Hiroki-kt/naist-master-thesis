@@ -1,0 +1,36 @@
+\input{config/config.tex}
+\pagestyle{draft}      % final or draft 
+\input{config/title_config.tex}
+\begin{document}
+%
+% 表紙 および アブストラクト
+%
+\titlepage
+\cmemberspage
+\firstabstract
+\secondabstract
+
+% 目次
+\toc
+\newpage
+\listoffigures
+%\newpage
+\listoftables
+
+\newpage
+\input{sections/ch1_introduction.tex}
+\input{sections/ch2_proposed_method.tex}
+\input{sections/ch3_experiment_azimuth.tex}
+\input{sections/ch4_experiment_application.tex}
+\input{sections/ch5_experiment_robot.tex}
+\input{sections/ch6_conclusion.tex}
+\input{sections/acknowledgements.tex}
+% \reference
+% \bibliographystyle{rsj}
+\bibliographystyle{junsrt}
+% \bibliographystyle{plain}
+\bibliography{mthesis}
+% appendix
+\input{sections/ch7_appendix.tex}
+\end{document}
+
