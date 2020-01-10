@@ -1,23 +1,77 @@
 \section{材料、形状の違い、複数面への応用実験}
-\label{chap:experiment_pouring}
-本章では、
+\label{chap:application_experiment}
+\subsection{実験目的}
+\label{sec:app_exp_purpos}
+モデルベースで解くことを目的に\chapref{exp_azimuth_angle}において、試してみたが、なかなか難しかった。そこで、データベースでどこまでのことができるのかを検証していく。
 
-\subsection{実験環境}
-\label{sec:system_experiment}
+その中でも、以下の3点について検証を行う。
+\begin{itemize}
+    \item 対象物体の材料
+    \item 対象物体の大きさ
+    \item 対象物体が複数
+\end{itemize}
 
-\subsubsection{材料の違いによる変化}
-\subsubsection{形状の違いによる変化}
-\subsubsection{面の数が複数の場合}
+それぞれについて、調べる目的について、記述する。
 
-\subsection{方位角推定による評価}
-\label{chap:pouring_experiment}
+まず、材料について、音の反射率は対象物体の吸音率、拡散反射率は対象物体の表面の粗さにそれぞれ影響を受ける。そのため、材料が代わるとある変化が起こると考えている。その変化についてどの程度なのか?
+鏡で作ったSVRモデルをそのまま使用できるのか？を検証していく。
 
-\subsubsection{材料の違いによる変化}
-\subsubsection{形状の違いによる変化}
-\subsubsection{面の数が複数の場合}
+次に、大きさについて、反射音の大きさについては対象物体の大きさは関係する。しかし、現在、音の大きさについて平均0分散1で正規化した結果を使用している。また、更にモデルてきにもミクロな見方をすることによって、検出しているのは　小さな面と考えることができる。以上の考察より、大きさについてはあまり変化しないのではないかと考えおり、この仮説についてと\chapref{exp_azimuth_angle}のSVRモデルを使用できるのかを検証していく。
 
+最後に、物体面の数が複数の場合について、私の研究としての最終目的は形状認識であるため、現段階で最も簡単な形状である面の推定はできることがわかっている。次の段階として、複数面の認識についてどこまでできるのかを検証していきたいと考えている。仮説としては、\chapref{exp_azimuth_angle}のSVRモデルは使用できないが、新たなSVRモデルを作成すれば、推定できるのではないかと考えている。以上の仮説について検証をしていきたいと考えている。
+
+\subsection{実験セッティング}
+\label{sec:app_exp_setting}
+実験環境は、\chapref{exp_azimuth_angle}と同様に奈良先端科学技術大学院大学情報科学領域S1,S2教室において実験を行った。無響室ではなく、実環境で行う理由としては、\chapref{exp_azimuth_angle}においても実環境でも結果でることがわかったため、今回は実際の環境により近い実環境での実験で検証を行った。
+
+それぞれの実験について詳細を\secref{app_exp_material_size_set}, \secref{app_exp_multi_set}で示す。
+
+\subsubsection{材料、大きさ実験}
+\label{sec:app_exp_material_size_set}
+厚さを均一にした鏡、ガラス、ダンボールの3種類の材料に対して、それぞれ、\tabref{app_exp_size_list}の3種類のサイズの平面板を用意した。厚さに関しては3mmを選択したが、理由は鏡とガラスの標準的な規格の中で共通していたからである。
+また、今回使用した鏡、ガラス、ダンボールの写真を\figref{app_exp_material}に示す。
+
+\begin{table}[tb]
+    \centering
+    \caption{Experiment size}
+    \begin{tabular}{|c|c|c|} \hline
+        Size Name & Height [mm] & Length [mm] \\ \hline\hline
+        Small  &  500  & 1000 \\ \hline
+        Middle &  1000 & 2000 \\ \hline
+        Middle &  2000 & 4000 \\ \hline
+    \end{tabular}
+    \label{tab:app_exp_size_list}
+\end{table}
+
+\begin{figure}[tb]
+    \centering
+    \subfigure[Mirror]{\includegraphics[width=0.3\linewidth]{images/fig_sample.png}}
+    \label{fig:mirror}
+    \subfigure[Glass]{\includegraphics[width=0.3\linewidth]{images/fig_sample.png}}
+    \label{fig:glass}
+    \subfigure[Cardboard]{\includegraphics[width=0.3\linewidth]{images/fig_sample.png}}
+    \label{fig:cardboard}
+    \caption{Experiment Materials}
+    \label{fig:app_exp_material}
+\end{figure}
+
+\subsubsection{複数面での実験}
+\label{sec:app_exp_multi_set}
+今後記述していく。
+
+\subsection{材料、大きさ実験の結果}
+\label{sec:app_exp_result_material_size}
+
+\subsubsection{材料の違いによる変化の考察}
+\label{sec:app_exp_material}
+
+\subsubsection{形状の違いによる変化の考察}
+\label{sec:app_exp_size}
+
+\subsection{複数面での実験の結果}
+\label{sec:app_exp_result_multi}
 
 \subsection{考察}
-\label{sec:change_packages}
+\label{sec:app_exp_dissucusion}
 
 \clearpage
