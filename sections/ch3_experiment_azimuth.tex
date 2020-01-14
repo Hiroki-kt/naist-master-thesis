@@ -12,120 +12,152 @@
 
 \subsubsection{実験環境}
 本実験は無響室と実際の屋内の部屋の二通りで実験を行った.\\
-無響室は、大阪産業技術研究所和泉センター[ ?? ]の無響室を使用した。実験環境の図を\figref{chamber}に示す。\\
-また、屋内の部屋として、奈良先端科学技術大学院大学情報科学棟S1教室を使用した。このとき、机や椅子といったものはすべて除外している。このときの環境の様子の図を\figref{room}に示す。\\
+無響室は、大阪産業技術研究所和泉センター\cite{url_orist}の無響室を使用した。実験環境の図を\figref{chamber}に示す。\\
+また、屋内の部屋として、奈良先端科学技術大学院大学情報科学棟S1教室を使用した。このとき、机や椅子といったものはすべて除外している。このときの環境の様子の図を\figref{naist_s1}に示す。\\
 
 \begin{figure}[tb]
     \centering
-    \subfigure[Anechoic chamber]{\includegraphics[width=55mm]{images/fig_sample.png}}
-    \label{fig:chamber}
-    \subfigure[NAIST S1 room]{\includegraphics[width=55mm]{images/fig_sample.png}}
-    \label{fig:room}
-    \caption{Experiment Images}
+    \subfigure[Anechoic chamber (ORIST Izumi centor  \cite{url_orist})]{\includegraphics[width=0.6\linewidth]{images/3_anechoic_chamber_ver2.jpg}\label{fig:chamber}}
+    \subfigure[Real envitonment (NAIST S1 room)]{\includegraphics[width=0.6\linewidth]{images/3_naist_s1_ver2.jpg}\label{fig:naist_s1}}
+    \caption{Experiment environment}
     \label{fig:exp_photo}
 \end{figure}
 
+\clearpage
+
+\subsubsection{実験器具}
 実験に用いた道具は以下の通りである。
 \begin{itemize}
 	\item マイク：Seed社製 Respearker Mic Array V2.0
 	\item スピーカ：FPS社製 コンパクトオーディオスピーカー(SW5500-SS)
     \item 回転台：シグマ光機社製 小型回転ステージ(OSMS-60YAW)
-    \item 平面：ガラス板(横40×縦25)
+    \item 平面：ガラス板(横32×縦23)
 \end{itemize}
 マイクは4つのマイクロホンを搭載しあたマイクロホンアレイを用いた。理由としては、Beamforming技術を用いることで音源の到来方向を制限するためである。今回、スピーカをマイクと対象平面とは180[deg]反対側に配置した。これにより、Beamformingを用いることで、スピーカ側180[deg]の音源を取らないように制限することができる。これにより、直接音を弱め、反射音を強めることができると考えた。
 
 スピーカは平面波スピーカを使用している。普段、音は近傍界、遠方界によって波の形状が変化する。近傍界では球面波、遠方界では平面波となる。今回の手法を用いる場合、音源の入射方向が一意に決まる必要があるため、平面波を用いることが必要である。そのため、平面波を出力の時点で出すことができるスピーカを用いることでこの問題を解決した
 
-回転台は\ref{exp_popse}節の(1),(2)において平面の方位角との収録音の関係を取得する際に方位角に関して、1[deg]ごとに変化させた実験データ収録するために使用した。今回使用した回転台は最小単位が0.0001[deg]の精度で回転させることができる。そのため、今回欲しい平面の方位角を1[deg]ごとに-50[deg] $\sim$ 50[deg]を取るには十分だと考えている。また、停止時の振動と移動時の雑音も少ないため、今回のような音を使った実験を行うのに最適だと考えた。
+回転台は平面の方位角との収録音の関係を取得するために使用する。本実験では、1[deg]ごとに変化させた実験データ収録する。。今回使用した回転台は最小単位が0.0001[deg]の精度で回転させることができる。そのため、今回欲しい平面の方位角を1[deg]ごとに-50[deg] $\sim$ 50[deg]を取るには十分だと考えている。また、停止時の振動と移動時の雑音も少ないため、今回のような音を使った実験を行うのに最適だと考えた。
 さらに、本実験ではバックラッシュ誤差が少しでも出ないように1[deg]を連続で変化させるのではなく、10[deg]ずつ変化させ、データを集めた。
 
-平面にはガラス板を用いた。理由としては、ガラスは音の反射率も高いからである。更に、ガラスはカメラでの認識が難しいため、音を使う優位性があると考えた。
-その他の実験をした際のパラメータを表\ref{tab:para}に示す
+平面にはガラス板を用いた。理由としては2点ある。1点目は、ガラスは表面が非常になめらかであるため、拡散反射率がより理論値に近づくと考えた点である。2点目はカメラでの認識が難しく音波を使うことの有用性が考えられる点である。
 
-\begin{table}[t]
-    \centering
-    \caption{Parametar of experiment}
-    \begin{tabular}{|c|c|}\hline
-        $_\phi[\mathrm{deg}]$ & 90 \\ \hline
-        $\psi[\mathrm{deg}]$ & $-50 \sim 50$ \\\hline
-        % $\rho$ & 0.9 \\\hline
-    \end{tabular}
-    \label{tab:para}
-\end{table}
-
-実験の様子を図\ref{fig:exp_env}に示す。
-
-\begin{figure}[t]
-  \begin{center}
-  \vspace{1zh}
-    \includegraphics[width=0.7\linewidth]{images/fig_sample.png}   
-  \end{center}
-  \caption{Experiment environment}
-  \label{fig:exp_env}
-\end{figure}
 
 \subsubsection{実験方法}
-二通りの実験を行った。
-まず、(1)に関してはスピーカからTSP信号をもちいた伝達関数の作成を行った。
-本実験では、TSP信号を用いてインパルス応答を求めることで伝達関数を作成する。この伝達関数とモデルとを比較することによってモデルを評価する。また、今回はインパルス応答の周波数特性を見たいため、Up-TSP信号を用いた。
+スピーカからUp-TSP信号を出力し、その反射音ををマイクロホンアレイにより取得する。今回、Up-TSP信号を使用した点には2点ある。1点目は全周波数の情報を持っているためである。今回、周波数領域の情報が重要である。そのため、全周波数を持つTSP信号を用いることを考えた。2点目はTSP信号の本来の使い方であるインパルス応答を見ることができ、伝達関数を作成可能という点である。この伝達関数を参考にすることで、モデル作成に関して有益な情報を見つけることができないかとかと考えた。さらに、その中でもUp-TSP信号を採用した理由としては、周波数特性に対して外乱が少ないためである。[参考文献]
 
-次に(2)、(3)に関しては、スピーカから1000[Hz], 2000[Hz], 5000[Hz]をならすことで、方位角を推定した。
-本実験では、方位角を求めるために必要な中域($f_m$ = 1000)、高域($f_h$ = 2000, 5000)の周波数をそれぞれ0.05[s]ずつならした音の反射音を取得することで、方位角$N$を求めて、モデルを評価する。
-今回時間を0.05[s]にした理由としては、反射音と直接音の干渉を少なくすることを目的としている。今回、マイク、反射面間の距離は20[cm]にしているため完全に干渉をなくすためには44100[Hz]でスピーカから音を出力する必要があった。しかし、スピーカの性能面から16000[Hz]が限界であったことと1000[Hz]という音を出力する際にあまりに短いと音が潰れてしまうことの２点があった。そのため、今回は余裕を持って0.05[s]のパルス波を使用した。
+実験の簡略図を\figref{exp_pos_para}, 実験をした際のパラメータを\tabref{exp_para}, 
+実験の様子を\figref{exp_env}に示す。
+
+\begin{figure}[ht]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=0.55\linewidth]{images/3_exp_pos_para.pdf}  
+  \end{center}
+  \caption{Position and parametor for experiment checking model}
+  \label{fig:exp_pos_para}
+\end{figure}
+
+\begin{table}[ht]
+    \centering
+    \caption{Value of parametar for experiment checking model}
+    \begin{tabular}{c|c}\hline
+        Parametor & Value \\ \hline\hline
+        $\alpha [\mathrm{deg}]$ & 0 \\ \hline
+        $\psi [\mathrm{deg}]$ & $-50 \sim 50$ (per 1 [deg])\\ \hline
+        $\theta [\mathrm{deg}]$ & 0 \\ \hline
+        $l_m [\mathrm{m}]$ & 0.2 \\ \hline
+        $l_s [\mathrm{m}]$ & 0.4 \\ \hline
+        % $\rho$ & 0.9 \\\hline
+    \end{tabular}
+    \label{tab:exp_para}
+\end{table}
+
+\begin{figure}[ht]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=0.6\linewidth]{images/3_exp_anechoic.jpg}  
+  \end{center}
+  \caption{Experiment for checking model}
+  \label{fig:exp_env}
+\end{figure}
 
 \subsection{モデルを用いた場合の評価}
 \label{sec:result_model}
 \subsubsection{中、高域のエネルギーの変化}
-(1)について、図\ref{fig:result1}はTSP信号を用いて作成したインパルス応答です。計算方法は時間領域をそのままフーリエ変換した（周波数幅44100）。その後、フーリエ変換の結果を$-50 \leq \psi <50$の100データの各周波数成分の平均を取り、その平均で割った結果の中でも$\psi=0, \psi=20$の値を描画したものです。
-結果より、直接音の影響が大きい点と今回行った処理が根拠に基づいていない点の2点より図\ref{fig:e-f}のような結果は出なかったと考えられる。また、今回の処理では、同様に方位角への変化も見ることはできなかった。
+(1)について、\figref{result1}はマイクで取得した音のフーリエ変換後の1000 [Hz]から2000 [Hz]のデータをプロットしたものである。フーリエ変換幅は全時間をフーリエ変換した。この結果の中でも$\psi=0, \psi=20$の値を描画したものである。
+\figref{e-f}と比較しても、周波数領域において、考えたモデルのような結果を見ることはできなかった。
 
-\begin{figure}[t]
+
+
+\subsubsection{エネルギー比と方位角の関係}
+(2)について、\figref{result2}に示す.\figref{result1}のある周波数についての方位角と振幅の関係を見たものである。この結果より、モデル作成時の仮定としておいていた拡散反射と鏡面反射の割合によって、変化が見えるという予測に対して、1000[Hz], 2000[Hz]の比較と、\figref{result1}の結果も踏まえて考えると、周波数におけるモデルのときに考えた拡散反射、鏡面反射の割合の変化については考えることが難しいのでは無いかと考えた。しかし、一方で、ある周波数における方位角に対しての振幅の変化は連続的であり、かつモデルで考えていた形に似ている形をしている。そのため、この点より、方位角の角度と反射音にはある一定の関係性があることがわかる。
+
+\subsubsection{方位角の推定}
+(3)について、 \equref{d_n_fm_fh}に当てはめ、1000 [Hz], 2000[Hz]の値で割った結果を\figref{result3}に示す。結果としては、予測モデルとは違った変化の仕方をする。この原因としては、(1)の仮定について、これまでの結果より現状のデータでは当てはまらないことが大きいと考えられる。
+
+\begin{figure}[ht]
   \begin{center}
   \vspace{1zh}
-    \includegraphics[width=0.7\linewidth]{images/fig_sample.png}   
+    \includegraphics[width=0.5\linewidth]{images/3_amp_fre_heimen.png}   
   \end{center}
+  \vspace{-2zh}
   \caption{elationship between energy (E) change with respect to frequency (f) and azimuth direction (N) when the sound source direction (S) and microphone direction (V)}
   \label{fig:result1}
 \end{figure}
 
-\subsubsection{エネルギー比と方位角の関係}
-(2)について、図\ref{fig:result2}に示す。バンドパスフィルタをかけた結果のRMSの値を1000, 2000で割った値である。しかし、以上に0付近で大きくなっている。これは計算結果の誤りであると考えられる。
-
-\begin{figure}[t]
+\begin{figure}[ht]
   \begin{center}
   \vspace{1zh}
-    \includegraphics[width=0.7\linewidth]{images/fig_sample.png}   
+    \includegraphics[width=0.5\linewidth]{images/3_amp_azi_heimen.png}   
   \end{center}
   \caption{Relation between energy ratio $D(\mathbf{N}|f_m, f_h)$ and azimuth angle $\mathbf{N}$ between mid and high frequencies at a point Q on the plane($f_m = 1000$, $f_h = 2000$)}
   \label{fig:result2}
 \end{figure}
 
-\subsubsection{方位角の推定}
-(3)について、(1),(2)の結果が上手く出ていないため、導出することができていない。
+\begin{figure}[ht]　　
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=0.5\linewidth]{images/3_d_n_heimen.png}   
+  \end{center}
+  \caption{Relation between energy ratio $D(\mathbf{N}|f_m, f_h)$ and azimuth angle $\mathbf{N}$ between mid and high frequencies at a point Q on the plane($f_m = 1000$, $f_h = 2000$)}
+  \label{fig:result3}
+\end{figure}
 
-% \begin{figure}[t]　　
-%   \begin{center}
-%   \vspace{1zh}
-%     \includegraphics[width=\linewidth]{fig.eps}   
-%   \end{center}
-%   \caption{Experiment environment}
-%   \label{fig:result3}
-% \end{figure}
+\clearpage
 
 \subsection{モデル作成に関する考察}
- 理論通りの結果にならない原因としては直接音の影響が大きいことがあると考える。現状完全に反射音のみを取得しているのではなく、マイクには直接音と反射音の合成音が取得されている。この直接音と合成音の分離が必要だと考える。この分離する手法としては2つ考えられる。1点目はスピーカからの距離と物体までの距離がわかっている場合、直接音のみのデータを録音しておく。スピーカとマイクの出力に関して同期を取ることで音速よりマイクへの音の到達時間を計算し、音データの中でも直接音が取得される時点から直接音のみのデータを引く。2点目はBeamformerを用いた音域制限である。現在使用しているデータはマイクで取得されたデータをそのまま用いている。理論的には、ある一点Qからの音のみを知りたいため、Beamformingを用いることによって取得する方向を制限することができ、これにより直接音の影響を完全に消す事はできないが弱めることができると考えられる。
+\label{sec:model_dissucussion}
+ 結果として、(1)の周波数領域における振幅の関係がなかった。しかし、(2)方位角と振幅の関係は似たような関係を見ることができた。そのため、モデル自体を使うことはできないが、方位角と反射音には何かしらの連続的な関係があることがわかった。
+ 
+ まずは、理論通りの結果にならない原因を考える。原因の一つは直接音の影響であると考える。今取得している音波は完全に反射音のみを取得しているのではなく、マイクには直接音と反射音の合成音が取得されている。さらに、もう一つが反射音の干渉である。この2点について、理論で考えたモデルでは、直接音は考えておらず、反射音はある1点の反射音のみを考えている。そのため、直接音、他の点での反射音が干渉した音をマイクで取得していることになる。この原因より、周波数領域での変化というのは干渉の影響を非常に受けやすいため、この結果になったと考えている。
+ 
+ 対策としては、２点考えられる。
+ 
+ 1点目はデータの改善である。方法は音声分離手法が考えられる。音声分離手法の中でも位置関係等が与えられるため、Beamformingを用いることが考えられるが、後の\secref{result_svr}で述べるが、結果としては、現在使用している4つのマイクロホンアレイでは空間分解能の精度が出ないため、難しいことがわかった。現状はDelay-Sum Beamforminを用いているが、適法Beamforingについて今後検討をしていきたいと考えている。
+ 
+ ２点目はモデルの改善である。特に、不安があるのが、鏡面反射と拡散反射の周波数の変化による変化である。鏡面反射と拡散反射の割合について、参考にした論文は音響分野の論文で、壁等が対象物体であることが多い。そのため、ミクロな視点で考えた論文を再度探すか、実験等を繰り返していくことが必要だと感じた。
+ 
+ \if 0
+ 
+ この直接音と合成音の分離が必要だと考える。この分離する手法としては2つ考えられる。1点目はスピーカからの距離と物体までの距離がわかっている場合、直接音のみのデータを録音しておく。スピーカとマイクの出力に関して同期を取ることで音速よりマイクへの音の到達時間を計算し、音データの中でも直接音が取得される時点から直接音のみのデータを引く。2点目はBeamformerを用いた音域制限である。現在使用しているデータはマイクで取得されたデータをそのまま用いている。理論的には、ある一点Qからの音のみを知りたいため、Beamformingを用いることによって取得する方向を制限することができ、これにより直接音の影響を完全に消す事はできないが弱めることができると考えられる。
+
+\fi
+
+\newpage
 
 \subsection{SVRを用いての評価}
 \label{sec:result_svr}
-SVRを用いての結果を\figref{result_svr_1}に示す。このとき、横軸は実際の対象面の角度、縦軸は推定した対象面の角度である。つまり、正解の値はオレンジの線のような直線がかけることがわかる。そのため、求める結果としては、このオレンジの線にどれだけ沿っているのかを評価する。
+\secref{result_model}より、方位角と反射音について関係があることがわかった。しかし、私自身では現状モデルを作成することができない。そこで、SVRの結果を参考にまたモデルについて考えていきたいと思う。
+まず、SVRを用いての結果を\figref{result_svr_1}に示す。このとき、横軸は実際の対象面の角度、縦軸は推定した対象面の角度である。つまり、正解の値はオレンジの線のような直線がかけることがわかる。そのため、求める結果としては、このオレンジの線にどれだけ沿っているのかを評価する。
 
-\begin{figure}[tb]
+\begin{figure}[ht]
     \centering
-    \subfigure[Result using SVR anechoic data]{\includegraphics[width=0.7\linewidth]{images/fig_sample.png}}
+    \subfigure[Result using SVR anechoic data]{\includegraphics[width=0.7\linewidth]{images/3_anechoic_model_test_data.png}}
     \label{fig:result_svr_anechoic}
     \vspace{2zh}
     \subfigure[Result using SVR real
-    data]{\includegraphics[width=0.7\linewidth]{images/fig_sample.png}}
+    data]{\includegraphics[width=0.7\linewidth]{images/3_real_model_test_data.png}}
     \label{fig:result_svr_real}
     \vspace{1zh}
     \caption{Result of Experiment based on SVR}
@@ -136,7 +168,11 @@ SVRを用いての結果を\figref{result_svr_1}に示す。このとき、横�
 
 このときのそれぞれの決定係数(Coefficient of determination, $\mathrm{R}^2$)と二乗平均平方誤差(Root Meen Squared Error, RMSE [deg])で評価した結果をTable. \ref{tab:result_svr_r2_rmse}に示す。
 
-\begin{table}[tb]
+以上の結果より、SVRを用いることによって、5 [deg]以下の誤差で推定することができることがわかった。ここで、モデルベースでの結果について、考察をするために、現状の実験器具についてそれぞれ検証を行う。
+
+使用した音の種類、周波数の範囲、スピーカについて、この組み合わせが正しかったのかを考察すべく、\secref{result_svr_sound_kind} $\sim$ \secref{result_svr_speaker}でそれぞれについて評価していく。
+
+\begin{table}[ht]
 \caption{Result of SVR}    
 \vspace{1zh}
 \centering
@@ -154,15 +190,12 @@ SVRを用いての結果を\figref{result_svr_1}に示す。このとき、横�
 \begin{figure}[tb]
   \begin{center}
   \vspace{1zh}
-    \includegraphics[width=0.7\linewidth]{images/fig_sample.png}   
+    \includegraphics[width=0.7\linewidth]{images/3_anechoic_model_real_data.png}   
   \end{center}
   \caption{Result using SVR (traing data: anechoic data, test data: real data)}
   \label{fig:result_svr_2}
 \end{figure}
 
-
-このように、SVRを用いることによって、5 [deg]以下の誤差で推定することができることがわかった。しかし、現状の実験で用いているものが最適であるかはわからない。そこで、実験設定について、正しかったのかの検証を行う。\\
-使用した音の種類、周波数の範囲、スピーカについて、この組み合わせが正しかったのかを考察すべく、\secref{result_svr_sound_kind} $\sim$ \secref{result_svr_speaker}でそれぞれについて評価していく。
 
 \subsubsection{使う音の評価}
 \label{sec:result_svr_sound_kind}
@@ -199,6 +232,7 @@ SVRを用いての結果を\figref{result_svr_1}に示す。このとき、横�
 \end{figure}
 
 \begin{figure}[t]
+  \centering    
     \subfigure[$1000$-$2000$Hz]{\includegraphics[width=0.35\linewidth]{images/fig_sample.png}
      \label{fig:1000}}
     \subfigure[$2000$-$3000$Hz]{\includegraphics[width=0.35\linewidth]{images/fig_sample.png}
@@ -224,52 +258,46 @@ SVRを用いての結果を\figref{result_svr_1}に示す。このとき、横�
 方法は球面波スピーカで発した音のデータを同様に作成したものでSVRをもちいてモデルを作成した。このときのスピーカは??を用いている。??について、の図を用いた場合の実験環境を\figref{exp_spherical_wave}に示す。
 この実験における結果を\figref{result_speaker_kinds}に示す
 
-\begin{figure}[tb]
+\begin{figure}[ht]
     \centering
     \subfigure[Speaker]{\includegraphics[width=55mm]{images/fig_sample.png}}
     \label{fig:spherical_speaker}
-    \subfigure[Experiment environment]{\includegraphics[width=55mm]{images/fig_sample.png}}
+    \subfigure[Experiment environment]{\includegraphics[width=55mm]{images/3_exp_anechoic.jpg}}
     \label{fig:exp_environment_spherical}
     \caption{Experiment for spherical wave}
     \label{fig:exp_spherical_wave}
 \end{figure}
 
-\begin{figure}[tb]
+\begin{figure}[ht]
   \begin{center}
   \vspace{1zh}
-    \includegraphics[width=0.6\linewidth]{images/fig_sample.png}   
+    \includegraphics[width=0.5\linewidth]{images/fig_sample.png}   
   \end{center}
   \caption{Comparison of speaker kinds}
   \label{fig:result_speaker_kinds}
 \end{figure}
 
+\clearpage
+
 \subsection{SVRを用いた場合の考察}
-SVRを用いた場合、物体平面の面の方向を誤差5 [deg]以下で推定することができた。このように推定できた理由としては、物体平面の方位角と周波数領域の波の様子には連続的な関係があった。この連続的な関係については、\figref{relation_intensity_azimuth}に示す。
-このような変化が1000 [Hz]から2000 [Hz]の間で見られた。そのため、このような変化の特徴を使うことでSVRでは推定モデルを作成することができたと考えている。
+SVRを用いた場合、物体平面の面の方向を誤差5 [deg]以下で推定することができた。このように推定できた理由としては、物体平面の方位角とある周波数でのパワースペクトルの様子には連続的な関係があった。この連続的な関係については、\figref{result2}にてすでに示している。このような変化の特徴を使うことでSVRでは推定モデルを作成することができたと考えている。
 
-\begin{figure}[tb]
-  \begin{center}
-  \vspace{1zh}
-    \includegraphics[width=0.5\linewidth]{images/fig_sample.png}   
-  \end{center}
-  \caption{Relationship of intensity and azimuth angle in 1000 [Hz]}
-  \label{fig:relation_intensity_azimuth}
-\end{figure}
+しかし、\secref{model_dissucussion}でも述べたが、このような変化はモデルベースで解く際には考えていた変化とは違う。
+この原因として、直接音や他の点の反射音の影響が考えられ、対策として、音声分離手法のBeamformingを考えた。そこで、Delay-Sum Beamforming を用いて、対象物体の中心から反射してきた音を分離してみた。周波数での関係に関して、\figref{e-f}のような変化を見ることはできるかを確認するために、分離音の1000 [ Hz]から2000 [HZ]のパワーの様子をその音を使い、方位角と波の強さの関係を\figref{beam_check_intensity}にて示す。また、さらに、SVRのモデルを作成し、推定した結果を\figref{beam_check_svr}で示す。
 
-しかし、このような変化はモデルを作成する際に考えていた変化とは違う。この理由として1点考えた。それは、モデル作成時はある1点における反射を元に考え、モデルを作成した。しかし、今回の取得した音は面から反射した音そのもので音を分離したものではない。そのため、Delay-Sum Beamforming を用いて、対象物体の中心から反射してきた音を分離してみた。その音を使い、方位角と波の強さの関係とSVRのモデルを作成し、推定した結果を\figref{beam_check}を示す。
+以上結果より、\figref{beam_check_intensity}より、.... 
 
-\begin{figure}[tb]
+\figref{beam_check_svr}より、精度はBeamforming前よりも低下した。この理由としては、2点あると考えている。1点目はBeamforingの精度が悪い。[参考文献]より、4個のマイクアレイではほとんど分離が不可能であることがわかる。このように、分離の精度が悪いと考えられる。
+2点目は、物体形状の影響が大きいという点である。物体形状の情報をわざと消しているBeamformingを用いることでその情報が落ち、精度が落ちたと考えられる。
+
+\begin{figure}[ht]
     \centering
-    \subfigure[Relationship of intensity and azimuth angle in 1000 Hz]{\includegraphics[width=55mm]{images/fig_sample.png}}
-    \label{fig:beam_check_intensity}
-    \subfigure[Experiment environment]{\includegraphics[width=55mm]{images/fig_sample.png}}
-    \label{fig:beam_check_svr}
-    \caption{Experiment for spherical wave}
+    \subfigure[Beamforming result]{\includegraphics[width=55mm]{images/fig_sample.png}\label{fig:beam_check_intensity}}
+    \subfigure[SVR result using beamforming data]{\includegraphics[width=55mm]{images/fig_sample.png}\label{fig:beam_check_svr}}
+    \caption{Result of beamforming}
     \label{fig:beam_check}
 \end{figure}
 
-この結果より、精度はBeamforming前よりも低下した。この理由としては、2点あると考えている。1点目はBeamforingの精度が悪い。[参考文献]より、4個のマイクアレイではほとんど分離が不可能であることがわかる。このように、分離の精度が悪いと考えられる。
-2点目は、物体形状の影響が大きいという点である。物体形状の情報をわざと消しているBeamformingを用いることでその情報が落ち、精度が落ちたと考えられる。
 
 このような結果より、3点の疑問点もできた。
 \begin{itemize}
@@ -277,24 +305,26 @@ SVRを用いた場合、物体平面の面の方向を誤差5 [deg]以下で推�
     \item 物体の大きさを小さくしても認識可能か？
     \item 複数面でも認識可能か？
 \end{itemize}
-上記の3点について、次の章で検証していく。
+上記の3点について、次の節で検証していく。
 
 また、SVRにおいて、どの周波数に関係があるのか？、どのような関係が見えるかを調べるために、主成分分析とパラメトリック固有空間法を用いて、検証を行った。その検証について、\secref{PCA}で行う。
+
+\if 0
+\begin{figure}[ht]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=0.5\linewidth]{images/fig_sample.png}   
+  \end{center}
+  \caption{Relationship of intensity and azimuth angle in 1000 [Hz]}
+  \label{fig:relation_intensity_azimuth}
+\end{figure}
+\fi
+
 
 \subsubsection{サポートベクターの解析}
 \label{sec:PCA}
 まず、主成分分析を用いて、第一、第二、第三主成分の周波数における固有値の変化を無響室でのデータ、現実環境でのデータそれぞれで比較する。
 結果を\figref{pca_check}に示す。
-
-\begin{figure}[tb]
-    \centering
-    \subfigure[PCA anechoic data]{\includegraphics[width=55mm]{images/fig_sample.png}}
-    \label{fig:pca_check_anechoic}
-    \subfigure[PCA real data]{\includegraphics[width=55mm]{images/fig_sample.png}}
-    \label{fig:pca_check_real}
-    \caption{Result of PCA}
-    \label{fig:pca_check}
-\end{figure}
 
 このように、両者は似たような変化をしていることがわかる。この変化にサポートベクターは着目しているため、無響室でのモデルが実環境のデータに当てはめることができたと考えられる。
 
@@ -302,17 +332,27 @@ SVRを用いた場合、物体平面の面の方向を誤差5 [deg]以下で推�
 今回の場合、角度が-50から50で回転しているため、回転のような連続的な動きが見れることが望ましい。
 無響室データ、実環境データそれぞれの結果を\figref{pes_check}に示し、このときの、主成分分析の寄与率をTable. \ref{tab:pes_contri}に示す。
 
-\begin{figure}[tb]
+\begin{figure}[ht]
     \centering
-    \subfigure[Parametric eigen space method of anechoic data]{\includegraphics[width=55mm]{images/fig_sample.png}}
+    \subfigure[PCA anechoic data]{\includegraphics[width=55mm]{images/3_pca_pc1_pc3_anechoic_ve2.png}}
+    \label{fig:pca_check_anechoic}
+    \subfigure[PCA real data]{\includegraphics[width=55mm]{images/3_pca_pc1_pc3_real_ver2.png}}
+    \label{fig:pca_check_real}
+    \caption{Result of PCA}
+    \label{fig:pca_check}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \subfigure[Parametric eigen space method of anechoic data]{\includegraphics[width=55mm]{images/3_pca_1025_anechoic.png}}
     \label{fig:pes_check_anechoic}
-    \subfigure[Parametric eigen space method of real data]{\includegraphics[width=55mm]{images/fig_sample.png}}
+    \subfigure[Parametric eigen space method of real data]{\includegraphics[width=55mm]{images/3_pca_1205_real_loading.png}}
     \label{fig:pes_check_real}
     \caption{Parametric eigen space method}
     \label{fig:pes_check}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[ht]
     \centering
     \caption{Contribution rate}
     \vspace{1zh}
@@ -325,6 +365,8 @@ SVRを用いた場合、物体平面の面の方向を誤差5 [deg]以下で推�
     \end{tabular}
     \label{tab:pes_contri}
 \end{table}
+
+\clearpage
 
 以上の結果より、確かに取得した音データの中には方位角による連続的な関係があることはわかった。さらに、動きもなめらかに円を描くような結果を出力している。このような点より、方位角と反射音の周波数領域の大きさには連続的な関係が見ることはできる。このため、サポートベクターによる回帰が可能であったと考えられる。
 

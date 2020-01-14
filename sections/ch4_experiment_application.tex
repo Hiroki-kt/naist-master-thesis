@@ -57,7 +57,28 @@
 
 \subsubsection{複数面での実験}
 \label{sec:app_exp_multi_set}
-今後記述していく。
+
+２枚の面として、大きさが同じ場合と大きさが違う場合の2通りの検証を行う。
+さらに、この2通りに対して、それぞれ以下の検証を行う.
+
+\begin{itemize}
+    \item 一枚の時のSVRモデルをそのままつかえるか。1000Hz - 2000Hzでの波形は一枚の時とどこまで違うのか。を検証
+    \item 形状がどこまで影響を及ぼすのか？鏡の大きさを変更することで検証
+\end{itemize}
+
+同じ大きさとして、200×400の鏡を２枚用い、違う大きさとしては、200×400 1枚、100×200 1枚の計2枚を使用した。
+
+実験の様子を\figref{app_exp_multi_env}に示す。
+
+\begin{figure}[tb]
+    \centering
+    \subfigure[200×400 2plate]{\includegraphics[width=0.7\linewidth]{images/fig_sample.png}}
+    \label{fig:app_exp_multi_env_same}
+    \subfigure[200×400 1plate, 100×200 1plate]{\includegraphics[width=0.7\linewidth]{images/fig_sample.png}}
+    \label{fig:app_exp_multi_env_different}
+    \caption{Experiment environment}
+    \label{fig:app_exp_multi_env}
+\end{figure}
 
 \subsection{材料、大きさ実験の結果}
 \label{sec:app_exp_result_material_size}
@@ -73,5 +94,7 @@
 
 \subsection{考察}
 \label{sec:app_exp_dissucusion}
+物体面が増えていくごとに,どんな関係があるのか？(わかったら)
 
 \clearpage
+\newpage
