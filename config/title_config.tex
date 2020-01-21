@@ -52,11 +52,33 @@ in Frequency Domain}
 \ekeywords{Robot Audition, Object Shape Recognition, Transparent Object Recognition, Support Vector Regression, Plane Wave}
 \epkeywords{}
 \abstract{
-ロボットにおいて、暗闇での把持や、透明物体の把持するにはまだ、問題がある。解決策として、音波を用いての法線方向推定手法を提案する。Photometric Stereoに代表される陰影解析を参考にして、これまで音波では使われてこなかった法線方向推定手法を開発した。その中では、音波の特徴となる反射特性が周波数の高さによって変化することを用いている。
+ロボットにおいて、暗闇での把持や、透明物体の把持するにはまだ、問題がある。解決策として、音波を用いての法線方向推定手法を提案する。Photometric Stereoに代表される陰影解析を参考にして、波の強弱に着目することで、これまでとは違う手法で平面の方位角の推定を行うことを目的とする。
+
+そこで、本論文では、二通りの手法を提案する。1つ目は光学における物体面でのモデルと音響学における音の周波数における反射特性の変化の2点に着目することで、モデルを作成し、平面の方位角方向を推定する
+2つ目は実際に平面、スピーカ、マイクを用いて実験を行って得たデータに対して、サポートベクター回帰を用いて、モデルを作成することで、平面の方位角を推定する手法でる。
+
+1つ目のモデル化による結果は推定できなかった。原因は2つ考えられ、1つ目は仮定として、考えていた音響分野のモデルが壁面などのある程度の大きさを持った物体である点で、今回対象とした平面には合わなかった点が考えられる。2つ目はモデルで考えていたものはある1点のデータであったが、音声分離がうまくいかず、きれいに対象点のデータを取り出すことができない
+
+2つ目のSVRによるモデル化の結果、誤差5[deg]以内で方位角を推定できることがわかった。さらに、無響室で作成したモデルを使い実環境で録音したデータの方位角も誤差6[deg]以内で推定可能である。
+
+さらに、このSVRの結果に関して、様々なデータに変更することで、どのような条件やデータであれば推定可能であるかを検証した。検証項目としては、以下の6項目を考えた。 1.使用した音の種類(TSP信号, トーン音), 2.使用した周波数の範囲, 3.使用したスピーカ(平面波, 球面波), 4. 対象面の材質(ガラス, ダンボール), 5.対象面の大きさ(大, 中, 小), 6.対象面の数(1面, 2面)
+
+最後に、ロボットでの実験を見据えて、ロボットのエンドエフェクタに取り付けることができるセンサセットを開発し、SVRを用いての検証を行った。結果として...
 }
 \pabstract{}
 \eabstract{
- In robots, there are still problems in gripping in the dark and gripping transparent objects. As a solution, we propose a normal direction estimation method using sound waves.With reference to Shape-from-Shading represented by Photometric Stereo, we have developed a normal direction estimation method that has not been used in sound waves until now. In my method, it is used that the reflection characteristic that is a characteristic of a sound wave changes depending on the height of the frequency.
+In a robot, there are still problems in grasping in the dark or grasping a transparent object. As a solution, we propose a normal direction estimation method using sound waves. The purpose of this study is to estimate the azimuth of a plane using a different method from the past by focusing on the strength of waves with reference to shadow analysis represented by Photometric Stereo.
+
+In this paper, we propose two methods. The first is to create a model by estimating the azimuthal direction of a plane by focusing on two points: a model on the object plane in optics and a change in reflection characteristics at the frequency of sound in acoustics.
+The second is a method of estimating the azimuth of a plane by creating a model by using support vector regression on data obtained by actually performing an experiment using a plane, a speaker, and a microphone.
+
+The results from the first modeling could not be estimated. There are two possible causes.The first is assuming that the model in the acoustic field I was thinking of was an object with a certain size, such as a wall, and that it did not fit the plane we were targeting this time. Conceivable. Secondly, what I was thinking in the model was one point of data, but the sound separation did not work well and I could not extract the data of the target point clearly
+
+As a result of modeling with the second SVR, it was found that the azimuth can be estimated within an error of 5 [deg]. Furthermore, the azimuth of data recorded in a real environment using a model created in an anechoic room can be estimated with an error of less than 6 [deg].
+
+Furthermore, regarding the result of this SVR, it was verified what conditions and data can be estimated by changing to various data. The following six items were considered as verification items. 1. Type of sound used (TSP signal, tone sound), 2. Range of frequency used, 3. Speaker used (plane wave, spherical wave), 4. Material of target surface (glass, cardboard), 5. Target Surface size (large, medium, small), 6.Number of target surfaces (one, two)
+
+Finally, we developed a sensor set that can be attached to the end effector of the robot, and performed verification using the SVR, in anticipation of experiments with the robot. as a result...
 }
 
 \epabstract{}

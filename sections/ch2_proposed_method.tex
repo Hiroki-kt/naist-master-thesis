@@ -2,27 +2,28 @@
 \label{chap:proposed_method}
 \subsection{提案手法の概要}
 \label{sec:proposed_method_overviews}
-本研究ではスピーカから出た音が対象平面に反射してマイクにて検出された音を使用し、周波数領域における波の強さを使うことによって、対象平面の方位角方向を推定する手法を提案する。この提案手法の概要について、\figref{proposed_method_overview}にて示す。
+本研究ではスピーカから出た音が対象平面に反射してマイクにて検出された音を使用し、発する音の周波数と反射音の強度の関係を使うことによって、対象平面の方位角方向を推定する手法を提案する。この提案手法の概要について、\figref{proposed_method_overview}にて示す。
 
 推定手法としては、二通りの方法によって、対象面の方位角方向とマイクで取得した音の関係をモデル化を行った。\\
 一つ目は音響、物理の音の反射モデルを参考にすることで、方位角度と反射音の関係をモデル化を行った。詳細は\secref{self_by_myself}で示す。\\
 二つ目は無響室、実環境二つの環境で集めたデータに対して、サポートベクター回帰を用いて、モデル化を行った詳細は\secref{svr_method}で示す。
 
-\begin{figure}[h]
+\begin{figure}[ht]
     \centering
     \includegraphics[width=\linewidth]{images/2_proposed_method.pdf}
-    \caption{Proposed method over views}
+    \caption{The overview of the proposed method}
     \label{fig:proposed_method_overview}
 \end{figure}
 
 \subsection{方位角推定モデルの作成}
 \label{sec:self_by_myself}
 \subsubsection{音波の反射特性}
-音波がもつ特性として、光では可視範囲の波長が780[nm] $\sim$ 380[nm]なのに対して、音の可聴範囲での波長は17[m] (20[Hz]) $\sim$ 17[mm] (20[kHz])で長さの差が1000倍もある。そのため、光に比べて、音波はその周波数によって反射特性に変化がでる。
+光の可視範囲の波長が780[nm] $\sim$ 380[nm]なのに対して、音の可聴範囲での波長は17[m] (20[Hz]) $\sim$ 17[mm] (20[kHz])で長さの差が1000倍もある。そのため、光に比べて、音波はその周波数によって反射特性に変化がでる\cite{fujiwara1997diffusereflection}。
 
 周波数の違いによる反射特性の変化を\tabref{reflection_chara}に示す。
 音波の反射はlow(低域)では、小さな傾きや凹凸には関係なく鏡面反射する。Middle(中域)では、物理の反射の法則に乗っ取り鏡面反射する。最後に、High(高域)では、拡散反射する。
-しかし、低域では、マイクとスピーカの入力音圧レベルと出力音圧レベルの周波数特性が著しく小さくなることが多いという点と低域は生活雑音が多い点の２点の問題より、低域周波数音源の使用が難しいと考えた。そのため、中域から高域に行く際に鏡面反射から拡散反射に変化することに着目する．
+本論文では、中域から高域に渡って、反射特性が変化することに着目する。
+低域を無視した理由としては、低域では、マイクとスピーカの入力音圧レベルと出力音圧レベルの周波数特性が著しく小さくなることが多いという点と低域は生活雑音が多い点の２点の問題が挙げられる。
 それぞれの反射のエネルギーに着目すると、鏡面反射では，反射音は入射角に応じて，ある定まった方向にのみ反射する．それに対し，拡散反射では，入射角により反射する音のエネルギーは影響されるものの，すべての方向に一様に反射する．
 
 \figref{specular_strong}のように、鏡面反射した音がマイクに入りやすい面の角度の場合、中域では鏡面反射した音波を主に観測し，高域では拡散反射した音波を観測する。鏡面反射で観測されるエネルギーの方が大きいため，周波数の変化により全体として観測されるエネルギーが減少していくと考えられる．
@@ -85,7 +86,7 @@
 
 ただし，$ e_\mathrm{spe}, e_\mathrm{dif} $は，ある基準の音源における，マイクが受け取る鏡面反射，拡散反射音のエネルギー，$\gamma_\mathrm{spe}, \gamma_\mathrm{dif} $は, ある基準の音源における，鏡面反射率、拡散反射率のをそれぞれ示す．また、$ e_\mathrm{spe}, e_\mathrm{dif} $について詳細はそれぞれ以下にて説明している。
 
-この時、今回反射以外でのエネルギー損失をないと仮定し、$\gamma_\mathrm{spe} + \gamma_\mathrm{dif} = 1 $と考える。反射音における拡散反射率の関数$\gamma_\mathrm{dif}$は佐久間らが実測によって求めた周波数が変化した際の拡散反射率の変化の結果から引用した図\figref{diffuse_rate}\cite{sakuma2004soundreflection}を参考にして、シグモイド関数を用いて以下の式(\ref{equ:gamma})のように設定した。
+このとき、今回反射以外でのエネルギー損失をないと仮定し、$\gamma_\mathrm{spe} + \gamma_\mathrm{dif} = 1 $と考える。反射音における拡散反射率の関数$\gamma_\mathrm{dif}$は佐久間らが実測によって求めた周波数が変化した際の拡散反射率の変化の結果から引用した図\figref{diffuse_rate}\cite{sakuma2004soundreflection}を参考にして、シグモイド関数を用いて以下の式(\ref{equ:gamma})のように設定した。
 \begin{equation}
     \label{equ:gamma}
     \left\{
@@ -110,14 +111,14 @@
 式の定義には，光学におけるPhongのモデル\cite{phong1975specularreflection}を参考にした。
 Phongのモデルは経験に基づく古典的なモデルであり，次式のように照明方向の正反
 射方向と観測方向のなす角$\beta_\mathrm{spe}$の余弦のべき乗として近似するモデルである.
-この時、反射波の強さ$i$は
+このとき、反射波の強さ$i$は
 \begin{equation}
 	\label{equ:phong}
 	i = \rho_\mathrm{spe}\cos^{n}(\beta_\mathrm{spe}) ,
 \end{equation}
 と表せる。
 
-この時、$\rho_\mathrm{spe}$は鏡面反射率であり，鏡面反射の強さを表す.係数$n$は，表面の粗さを表すパ ラメータである。このモデルは，あくまで経験に基づくものであり，エネルギー保存の法則を満たす保証がないなどの性質は気をつける必要はあるが，簡単に計算できるため，今回は使用した。
+このとき、$\rho_\mathrm{spe}$は鏡面反射率であり，鏡面反射の強さを表す.係数$n$は，表面の粗さを表すパ ラメータである。このモデルは，あくまで経験に基づくものであり，エネルギー保存の法則を満たす保証がないなどの性質は気をつける必要はあるが，簡単に計算できるため，今回は使用した。
 
 以上のPhongのモデルを参考にして、鏡面反射音$e_\mathrm{spe}$のエネルギーを式(\ref{equ:e_spe})のように定義した。
 \begin{equation}
@@ -125,7 +126,7 @@ Phongのモデルは経験に基づく古典的なモデルであり，次式の
       e_\mathrm{spe}(\mathbf{S}, \mathbf{N}, \mathbf{V}, n) = \cos^{n}\beta(\mathbf{S}, \mathbf{N}, \mathbf{V}).
 \end{equation}
 
-この時、$\beta(\mathbf{S}, \mathbf{N}, \mathbf{V})$について反射の法則と余弦定理を用いることで、求めていく。
+このとき、$\beta(\mathbf{S}, \mathbf{N}, \mathbf{V})$について反射の法則と余弦定理を用いることで、求めていく。
 まず、$\mathbf{S'}$は反射の法則より$\mathbf{S}, \mathbf{N}$を用いて以下のように表すことができる。
 \begin{equation}
 	\mathbf{S'} = \mathbf{S} + 2(- \mathbf{S}^{\mathrm{T}} \mathbf{N}) \mathbf{N}.
@@ -160,7 +161,7 @@ Lambertのモデルは、式(\ref{equ:lambert})のように照明方向と法線
     e_\mathrm{dif} = \kappa\mathbf{S}^{\mathrm{T}}\mathbf{N}.
 \end{equation}
     
-この時、$\kappa$は拡散反射の中でもマイクに入ってくる音の割合を示す
+このとき、$\kappa$は拡散反射の中でもマイクに入ってくる音の割合を示す
 % 拡散反射における表面の粗さに関係なく一様に拡散反射すると仮定して、鏡面反射のような表面の粗さに関するパラメータは必要ない。
 
 \subsubsection{推定モデルの考察}
@@ -189,7 +190,7 @@ Lambertのモデルは、式(\ref{equ:lambert})のように照明方向と法線
 
 また、これを図に表してみると、\figref{d-n}の用になる。
 
-$-50< \psi < 50$の範囲で方位角に対して、エネルギーの比$D$が関係するモデルを作成することができた。この時、音源の入射方向$\mathbf{S} = (-\cos{_\phi}, -\sin{_\phi})$ (0[deg] < $_\phi$ < 180[deg])とする。
+$-50< \psi < 50$の範囲で方位角に対して、エネルギーの比$D$が関係するモデルを作成することができた。このとき、音源の入射方向$\mathbf{S} = (-\cos{_\phi}, -\sin{_\phi})$ (0[deg] < $_\phi$ < 180[deg])とする。
 $D$と$N$の関係の図より、物体の方位角を式(\ref{eq:d_n_fm_fh})から求める場合、二通りの解き方が考えられる。一つは方位角を制限する。$_\phi=90$[deg]の場合$0<\psi<50$の範囲に制限することで、単調減少するため一意に求める事ができる。
 もう一つは複数方向からの音源を用意することである。\figref{d-n}でもあるように$_\phi=90$[deg]だけでは一意には求めることができないが、複数方向からの音源例えば、$_\phi = 45$[deg]があれば、連立方程式より求めることが可能になる。
 
@@ -241,7 +242,41 @@ $D$と$N$の関係の図より、物体の方位角を式(\ref{eq:d_n_fm_fh})か
 
 \subsubsection{サポートベクター回帰}
 \label{sec:support_vector_regression}
-まだ、かけていません...
+本研究では、平面の方位角を推定するのに、サポートベクター回帰(Support Vector Regression: 以降 SVR)を用いる。\cite{bishop2011prml}SVRの特徴として、誤差に不感帯を設けることで、ノイズの影響を受けにくく、さらに、基本的には線形な回帰分析手法であるが、カネールトリックを使うことによって、非線形の回帰モデルになる。本研究では、ガウシアンカーネルの非線形の回帰モデルを用いることで、対象平面の方位角推定を行う。
+
+以下にSVRの簡単な理論について説明する。
+
+非線形SVRでは、次を最小化する係数を求めます。
+
+\begin{equation}
+    L(\alpha) = \frac{1}{2}\sum^{N}_{i=1}\sum^{N}_{j=1}(\alpha_i - \alpha^{\ast}_i)(\alpha_j - \alpha^{\ast}_j)G(x_i, x_j) + \epsilon\sum^{N}_{i+1}(\alpha _i + \alpha^{\ast}_i) - \sum^{N}_{i=1}y_i(\alpha_i-\alpha^{\ast}_i)
+\end{equation}
+
+これには、次の条件が適用される。
+\begin{equation}
+    \begin{array}{l}
+        \sum^{N}_{n=1} (\alpha_n - \alpha^{\ast}_n) = 0\\
+        \forall n : 0 \le \alpha_n \le C\\
+        \forall n : 0 \le \alpha^{\ast}_n \le C.
+    \end{array}
+\end{equation}
+
+条件より、推定に使用される関数は以下に等しくなる。
+
+\begin{equation}
+    f(x) = \sum^{n}_{i=1}(\alpha_i - \alpha^{\ast}_i)G(x{n},x) + b
+\end{equation}
+
+このとき、Gは非線形カーネル関数で以下のように考えられる。
+
+\begin{equation}
+    G(x_n, x) = \mathrm{exp}(-\gamma||x_n=x||^{2})
+\end{equation}
+
+$\alpha_n, \alpha^{\ast}_n$が誤差$\epsilon$の範囲内にない場合に$\alpha_n - \alpha^{\ast}_n = 0$となり、SVRの回帰式を作成するサンプルとなる。$\epsilon = 0$のときが最もノイズに強いモデルとなる。。
+
+このとき, C, $\gamma$, $\epsilon$の3つがハイパーパラメータとして存在する。しかし、Cは$\epsilon$から導くこともできるため、C, $\gamma$の二つのパラメータを求める。この2つのハイパーパラメータを求めるためにグリッドサーチ交差検証を行う。グリッドサーチ交差検証とは、モデルの精度を向上させるために用いられる手法であり、全てのパラメータの組み合わせを試すグリッドサーチに加えて、さらにテストデータと訓練データの組み合わせを試す交差検証をすることで、最も評価精度が高いパラメータを探索する手法である。
+今回、この評価指標として、決定係数($\mathrm{R}^2$ Score)を採用した。
 
 \clearpage
 \newpage

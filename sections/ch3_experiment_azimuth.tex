@@ -42,6 +42,21 @@
 
 平面にはガラス板を用いた。理由としては2点ある。1点目は、ガラスは表面が非常になめらかであるため、拡散反射率がより理論値に近づくと考えた点である。2点目はカメラでの認識が難しく音波を使うことの有用性が考えられる点である。
 
+\begin{figure}[ht]
+    \centering
+    \subfigure[Respeaker Microphone Array V2.0]{\includegraphics[width=0.4\linewidth]{images/3_respeaker.jpg}}
+    \label{fig:respeaker_mic}
+    \subfigure[SW5500-SS]{\includegraphics[width=0.4\linewidth]{images/3_plane_speaker.jpg}}
+    \label{fig:plane_speaker}
+    \subfigure[OSMS-60YAW]{\includegraphics[width=0.4\linewidth]{images/3_turntable.jpg}}
+    \label{fig:turn_table}
+    \subfigure[Mirro plate (h: 23, l: 32)]{\includegraphics[width=0.4\linewidth]{images/3_mirror_ver1.jpg}}
+    \label{fig:mirror_ver1}
+    \caption{Experiment equipment images}
+    \label{fig:exp_equipment}
+\end{figure}
+
+\clearpage
 
 \subsubsection{実験方法}
 スピーカからUp-TSP信号を出力し、その反射音ををマイクロホンアレイにより取得する。今回、Up-TSP信号を使用した点には2点ある。1点目は全周波数の情報を持っているためである。今回、周波数領域の情報が重要である。そのため、全周波数を持つTSP信号を用いることを考えた。2点目はTSP信号の本来の使い方であるインパルス応答を見ることができ、伝達関数を作成可能という点である。この伝達関数を参考にすることで、モデル作成に関して有益な情報を見つけることができないかとかと考えた。さらに、その中でもUp-TSP信号を採用した理由としては、周波数特性に対して外乱が少ないためである。[参考文献]
@@ -134,7 +149,7 @@
  
  対策としては、２点考えられる。
  
- 1点目はデータの改善である。方法は音声分離手法が考えられる。音声分離手法の中でも位置関係等が与えられるため、Beamformingを用いることが考えられるが、後の\secref{result_svr}で述べるが、結果としては、現在使用している4つのマイクロホンアレイでは空間分解能の精度が出ないため、難しいことがわかった。現状はDelay-Sum Beamforminを用いているが、適法Beamforingについて今後検討をしていきたいと考えている。
+ 1点目はデータの改善である。方法は音声分離手法が考えられる。音声分離手法の中でも位置関係等が与えられるため、Beamformingを用いることが考えられるが、後の\secref{result_svr}で述べるが、結果としては、現在使用している4つのマイクロホンアレイでは空間分解能の精度が出ないため、難しいことがわかった。現状はDelay-Sum Beamforminを用いているが、MVDR Beamformingに代表される適応Beamforingについて今後検討をしていきたいと考えている。
  
  ２点目はモデルの改善である。特に、不安があるのが、鏡面反射と拡散反射の周波数の変化による変化である。鏡面反射と拡散反射の割合について、参考にした論文は音響分野の論文で、壁等が対象物体であることが多い。そのため、ミクロな視点で考えた論文を再度探すか、実験等を繰り返していくことが必要だと感じた。
  
@@ -151,13 +166,13 @@
 \secref{result_model}より、方位角と反射音について関係があることがわかった。しかし、私自身では現状モデルを作成することができない。そこで、SVRの結果を参考にまたモデルについて考えていきたいと思う。
 まず、SVRを用いての結果を\figref{result_svr_1}に示す。このとき、横軸は実際の対象面の角度、縦軸は推定した対象面の角度である。つまり、正解の値はオレンジの線のような直線がかけることがわかる。そのため、求める結果としては、このオレンジの線にどれだけ沿っているのかを評価する。
 
-\begin{figure}[ht]
+\begin{figure}[b]
     \centering
-    \subfigure[Result using SVR anechoic data]{\includegraphics[width=0.7\linewidth]{images/3_anechoic_model_test_data.png}}
+    \subfigure[Result using SVR anechoic data]{\includegraphics[width=0.48\linewidth]{images/3_anechoic_model_test_data.png}}
     \label{fig:result_svr_anechoic}
     \vspace{2zh}
     \subfigure[Result using SVR real
-    data]{\includegraphics[width=0.7\linewidth]{images/3_real_model_test_data.png}}
+    data]{\includegraphics[width=0.48\linewidth]{images/3_real_model_test_data.png}}
     \label{fig:result_svr_real}
     \vspace{1zh}
     \caption{Result of Experiment based on SVR}
@@ -185,17 +200,17 @@
   \label{tab:result_svr_r2_rmse}
 \end{table}
 
-\clearpage
 
-\begin{figure}[tb]
+\begin{figure}[ht]
   \begin{center}
   \vspace{1zh}
-    \includegraphics[width=0.7\linewidth]{images/3_anechoic_model_real_data.png}   
+    \includegraphics[width=0.48\linewidth]{images/3_anechoic_model_real_data.png}   
   \end{center}
   \caption{Result using SVR (traing data: anechoic data, test data: real data)}
   \label{fig:result_svr_2}
 \end{figure}
 
+\clearpage
 
 \subsubsection{使う音の評価}
 \label{sec:result_svr_sound_kind}
@@ -204,77 +219,110 @@
 方法は、単一の高さの音を流した音の場合でも同様にデータを作成し、SVRをつかってモデル化したモデルを用いて、推定を行い、その二乗平均平方誤差を比較する。
 この結果を\figref{result_sound_kind}に示す。
 
-\begin{figure}[tb]
+\figref{sound_kind_800} $\sim$ \figref{sound_kind_2000}より、単一の音を用いた場合は、SVRを用いても推定をすることはできていない。これは\figref{result2}からもわかるが、単一の音を切り取った場合その音には線形な関係を見ることができない。そのため、角度を推定することができなかったと考えられる。
+
+そこで、800, 1000, 2000 [Hz]での3つのデータを連結することで、3つの周波数の情報をもつデータセットを作成した。そのデータセットを用いて同様にSVRのモデル作成し、テストデータで検証した結果を\figref{result_sound_kind_ver2}に示す。
+
+\figref{result_sound_kind_ver2}のように、3つのデータを連結したデータを用いても認識はできなかった。この結果より、周波数領域のデータの重要性が理解できる。
+
+そのため、TSP信号のように、周波数領域に関して、多くのデータを集めることができる信号を使うことはモデルベースで解く際にも有効であると考えられる。
+
+\begin{figure}[b]
     \centering
-    \subfigure[1000Hz]{\includegraphics[width=55mm]{images/fig_sample.png}}
-    \label{fig:1000[Hz]}
-    \subfigure[2000Hz]{\includegraphics[width=55mm]{images/fig_sample.png}}
-    \label{fig:2000[Hz]}
+    \subfigure[800Hz]{\includegraphics[width=0.45\linewidth]{images/3_svr_1015_PTo01_800.png}\label{fig:sound_kind_800}}
+    \subfigure[1000Hz]{\includegraphics[width=0.45\linewidth]{images/3_svr_1015_PTo01_1000.png}\label{fig:sound_kind_1000}}
+    \subfigure[2000Hz]{\includegraphics[width=0.45\linewidth]{images/3_svr_1015_PTo01_2000.png}\label{fig:sound_kind_2000}}
+    \subfigure[Result using torn signal 800, 1000, 2000Hz]{\includegraphics[width=0.45\linewidth]{images/3_svr_1015_PTo01.png}\label{fig:result_sound_kind_ver2}}
     \caption{Comparison of result about sound kinds}
     \label{fig:result_sound_kind}
 \end{figure}
+
+\if 0
+\begin{figure}[ht]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=0.5\linewidth]{images/3_svr_1015_PTo01.png}   
+  \end{center}
+  \caption{Result using torn signal (800, 1000, 2000[Hz])}
+  \label{fig:result_sound_kind_ver2}
+\end{figure}
+\fi
+
+\clearpage
 
 \subsubsection{使う周波数の範囲の評価}
 \label{sec:result_svr_freq_renge}
 今回、使用する音の周波数として、音の反射の特性の変化を用いるために1000 [Hz]から2000[Hz]の音波を使用した。今回、このような音を用いることが有効であるかどうかを確認する。
 
-方法としては、二通りで検証する。\\
-１つ目は1000[Hz]から8000[Hz]までの音を用いて、主成分分析を行い、それぞれの主成分における各変数の固有値の絶対値を比べる。\\
-２つ目は1000[Hz]から1000[Hz]おきにこれまでと同様の方式でデータセットを作成し、それぞれの決定係数、二乗平均平方誤差を比較する。結果をそれぞれ\figref{result_freq_range_1}, \figref{result_freq_renge_2}に示す。
+方法として、1000[Hz]から1000[Hz]おきにこれまでと同様の方式でデータセットを作成し、それぞれの決定係数、二乗平均平方誤差を比較する。結果をそれぞれ\figref{result_freq_renge_2}, \tabref{result_freq_range_r2_rmse}に示す。
 
-\begin{figure}[tb]
-  \begin{center}
-  \vspace{1zh}
-    \includegraphics[width=0.4\linewidth]{images/fig_sample.png}   
-  \end{center}
-  \caption{Comparison of frequency range based on case PCA}
-  \label{fig:result_freq_range_1}
-\end{figure}
+\tabref{result_freq_range_r2_rmse}、\figref{result_freq_renge_2}より、0 $\sim$ 1000 [Hz]と6000 [Hz]以上の音のデータに関して、著しく結果が悪いことがわかる。この原因としては、2点考えられる。1点目はスピーカの出力の周波数応答、2点目はマイクの感度の周波数応答である。スピーカの周波数応答に関して、使用しているスピーカの周波数応答は0 $\sim$ 1000 [Hz]において、出力が低くなっている。この原因により、0 $\sim$ 1000 [Hz]において、音が安定しないため、0 $\sim$ 1000 [Hz]において、SVRの推定結果が悪くなったと考えられる。
 
-\begin{figure}[t]
-  \centering    
-    \subfigure[$1000$-$2000$Hz]{\includegraphics[width=0.35\linewidth]{images/fig_sample.png}
-     \label{fig:1000}}
-    \subfigure[$2000$-$3000$Hz]{\includegraphics[width=0.35\linewidth]{images/fig_sample.png}
-     \label{fig:2000}} 
-    \subfigure[$3000$-$4000$Hz]{\includegraphics[width=0.35\linewidth]{images/fig_sample.png}
-     \label{fig:3000}}
-    \subfigure[$4000$-$5000$Hz]{\includegraphics[width=0.35\linewidth]{images/fig_sample.png}
-     \label{fig:4000}} 
-    \subfigure[$5000$-$6000$Hz]{\includegraphics[width=0.35\linewidth]{images/fig_sample.png}
-     \label{fig:5000}}  
-     \subfigure[$6000$-$7000$Hz]{\includegraphics[width=0.35\linewidth]{images/fig_sample.png}
-     \label{fig:6000}}     \subfigure[$7000$-$8000$Hz]{\includegraphics[width=0.35\linewidth]{images/fig_sample.png}
-     \label{fig:7000}}    
+次に、マイクの感度に関して、5000[Hz]以上においてマイクの感度が上がっている。そのため、スピーカのときと同様に、5000[Hz]で徐々に精度が下がり、6000[Hz]を超えるとRMSE 10 [deg]になり、\figref{result_freq_renge_2}で見た際のずれも明らかに大きくなっていると考えられる。
+
+最後に、2000[Hz] $\sim$ 4000[Hz]の音が使いやすく、その中でも\figref{result_freq_renge_2}では、2000 $\sim$ 3000 [Hz]がきれいに見え、\tabref{result_freq_range_r2_rmse}では、RMSEが一番小さいのは3000 $\sim$ 4000 [Hz]になる理由はこれらのスピーカの出力とマイクの感度の最大出力と最低出力のちょうど中間程度であるため、安定しているためであると考えられる。
+
+これらの結果より、今回検証したかった、1000 $\sim$ 2000 [Hz]における反射特性の変化が重要であるという仮定について、本実験では検証できなかった。本実験では、マイクとスピーカの感度が安定する点であれば、モデルを作成することができるとわかった。
+
+今後、モデルベースで解く際にはスピーカから出す音に関しては、スピーカとマイクの許容範囲ギリギリではなく、余裕を持った音の高さを用いることが有効であることがわかった。しかし、音の反射特性の変化を用いることが有効であるか否かについては本実験では、検証することができなかった。今後、違った方法で検証していこうと考えている。
+
+\begin{figure}[p]
+  \centering  
+  \vspace{-7zh}
+    \subfigure[$0$-$1000$Hz]{\includegraphics[width=0.4\linewidth]{images/3_svr__191015_PTs01_freq_0.png}
+     \label{fig:freq_range_0}}
+    \subfigure[$1000$-$2000$Hz]{\includegraphics[width=0.4\linewidth]{images/3_svr__191015_PTs01_freq_1000.png}
+     \label{fig:freq_range_1000}}
+    \subfigure[$2000$-$3000$Hz]{\includegraphics[width=0.4\linewidth]{images/3_svr__191015_PTs01_freq_2000.png}
+     \label{fig:freq_range_2000}} 
+    \subfigure[$3000$-$4000$Hz]{\includegraphics[width=0.4\linewidth]{images/3_svr__191015_PTs01_freq_3000.png}
+     \label{fig:freq_range_3000}}
+    \subfigure[$4000$-$5000$Hz]{\includegraphics[width=0.4\linewidth]{images/3_svr__191015_PTs01_freq_4000.png}
+     \label{fig:freq_range_4000}} 
+    \subfigure[$5000$-$6000$Hz]{\includegraphics[width=0.4\linewidth]{images/3_svr__191015_PTs01_freq_5000.png}
+     \label{fig:freq_range_5000}}  
+     \subfigure[$6000$-$7000$Hz]{\includegraphics[width=0.4\linewidth]{images/3_svr__191015_PTs01_freq_6000.png}
+     \label{fig:freq_range_6000}}     \subfigure[$7000$-$8000$Hz]{\includegraphics[width=0.4\linewidth]{images/3_svr__191015_PTs01_freq_7000.png}
+     \label{fig:freq_range_7000}}    
      \caption{Comparison of frequency range based on case that I create models individually}
     \label{fig:result_freq_renge_2}
 \end{figure}
+
+\begin{table}[ht]
+\caption{Comparison of $\mathrm{R}^2$, RMSE by change of freequency range}    
+\vspace{1zh}
+\centering
+  \begin{tabular}{r||p{6em}|p{6em}} \hline
+    Frequency Range [Hz] & $\mathrm{R}^2$ & RMSE [deg] \\ \hline\hline 
+    0 $\sim$ 1000 & 0.692 &  14.218 \\ \hline 
+    1000 $\sim$ 2000 & 0.934 &  6.482 \\ \hline
+    2000 $\sim$ 3000 & 0.939 &  6.437 \\ \hline
+    3000 $\sim$ 4000 & 0.969 &  4.469 \\ \hline
+    4000 $\sim$ 5000 & 0.955 &  5.826 \\ \hline
+    5000 $\sim$ 6000 & 0.915 &  9.780 \\ \hline
+    6000 $\sim$ 7000 & 0.786 &  11.067 \\ \hline
+    7000 $\sim$ 7000 & 0.624 &  15.971 \\ \hline
+  \end{tabular}
+  \label{tab:result_freq_range_r2_rmse}
+\end{table}
+
 \clearpage
 
 \subsubsection{使うスピーカの評価}
 \label{sec:result_svr_speaker}
 今回の実験では、平面波のスピーカを用いている。しかし、これが球面波スピーカの場合ではどうなるのかを確認する。
 
-方法は球面波スピーカで発した音のデータを同様に作成したものでSVRをもちいてモデルを作成した。このときのスピーカは??を用いている。??について、の図を用いた場合の実験環境を\figref{exp_spherical_wave}に示す。
+方法は球面波スピーカで発した音のデータを同様に作成したものでSVRをもちいてモデルを作成した。このときのスピーカはONKYO社のパワードスピーカシステム GX-D90を用いている。GX-D90について、使用した物の写真を\figref{exp_spherical_wave}に示す。今回、本来はステレオスピーカとして、2対でつかうものであるが、\figref{exp_spherical_wave}のように、片方のみでしようした。理由としては、二つの方向から同時に音がなることによる干渉を避けるためである。
 この実験における結果を\figref{result_speaker_kinds}に示す
+
+この結果は\figref{result_speaker_kinds}となった。このときのRMSEは24.961 [deg]であり、球面波スピーカを用いた場合、これまでの平面波スピーカを使用した場合と比べて、SVRでの推定ができなくなっていることがわかる。以上の結果より、スピーカとして、平面波スピーカを用いたことはモデルベースで解く場合にも有効な手段であると考えられる。
 
 \begin{figure}[ht]
     \centering
-    \subfigure[Speaker]{\includegraphics[width=55mm]{images/fig_sample.png}}
-    \label{fig:spherical_speaker}
-    \subfigure[Experiment environment]{\includegraphics[width=55mm]{images/3_exp_anechoic.jpg}}
-    \label{fig:exp_environment_spherical}
-    \caption{Experiment for spherical wave}
-    \label{fig:exp_spherical_wave}
-\end{figure}
-
-\begin{figure}[ht]
-  \begin{center}
-  \vspace{1zh}
-    \includegraphics[width=0.5\linewidth]{images/fig_sample.png}   
-  \end{center}
-  \caption{Comparison of speaker kinds}
-  \label{fig:result_speaker_kinds}
+    \subfigure[GX-D90 ONKYO Inc.]{\includegraphics[width=0.4\linewidth]{images/3_specular_speaker.jpg}\label{fig:exp_spherical_wave}}
+    \subfigure[Result of the data by spherical wave]{\includegraphics[width=0.5\linewidth]{images/3_svr__191015_STs01.png}\label{fig:result_speaker_kinds}}
+    \caption{Experiment for speaker speculat speaker}
+    \label{fig:beam_check}
 \end{figure}
 
 \clearpage
@@ -283,13 +331,12 @@
 SVRを用いた場合、物体平面の面の方向を誤差5 [deg]以下で推定することができた。このように推定できた理由としては、物体平面の方位角とある周波数でのパワースペクトルの様子には連続的な関係があった。この連続的な関係については、\figref{result2}にてすでに示している。このような変化の特徴を使うことでSVRでは推定モデルを作成することができたと考えている。
 
 しかし、\secref{model_dissucussion}でも述べたが、このような変化はモデルベースで解く際には考えていた変化とは違う。
-この原因として、直接音や他の点の反射音の影響が考えられ、対策として、音声分離手法のBeamformingを考えた。そこで、Delay-Sum Beamforming を用いて、対象物体の中心から反射してきた音を分離してみた。周波数での関係に関して、\figref{e-f}のような変化を見ることはできるかを確認するために、分離音の1000 [ Hz]から2000 [HZ]のパワーの様子をその音を使い、方位角と波の強さの関係を\figref{beam_check_intensity}にて示す。また、さらに、SVRのモデルを作成し、推定した結果を\figref{beam_check_svr}で示す。
+この原因として、直接音や他の点の反射音の影響が考えられ、対策として、音声分離手法のBeamformingを考えた。そこで、Delay-Sum Beamforming を用いて、対象物体の中心から反射してきた音を分離した。この分離音を用いて、SVRのモデルを作成し、推定した結果を\figref{exp_beam_check}で示す。
 
-以上結果より、\figref{beam_check_intensity}より、.... 
-
-\figref{beam_check_svr}より、精度はBeamforming前よりも低下した。この理由としては、2点あると考えている。1点目はBeamforingの精度が悪い。[参考文献]より、4個のマイクアレイではほとんど分離が不可能であることがわかる。このように、分離の精度が悪いと考えられる。
+\figref{exp_beam_check}より、精度はBeamforming前よりも低下した。この理由としては、2点あると考えている。1点目はBeamforingの精度が悪い。[参考文献]より、4個のマイクアレイではほとんど分離が不可能であることがわかる。このように、分離の精度が悪いと考えられる。
 2点目は、物体形状の影響が大きいという点である。物体形状の情報をわざと消しているBeamformingを用いることでその情報が落ち、精度が落ちたと考えられる。
 
+\if 0
 \begin{figure}[ht]
     \centering
     \subfigure[Beamforming result]{\includegraphics[width=55mm]{images/fig_sample.png}\label{fig:beam_check_intensity}}
@@ -297,7 +344,16 @@ SVRを用いた場合、物体平面の面の方向を誤差5 [deg]以下で推�
     \caption{Result of beamforming}
     \label{fig:beam_check}
 \end{figure}
+\fi
 
+\begin{figure}[ht]
+  \begin{center}
+  \vspace{1zh}
+    \includegraphics[width=0.6\linewidth]{images/3_svr_191015_PTs01_beam.png}   
+  \end{center}
+  \caption{SVR result using beamforming data}
+  \label{fig:exp_beam_check}
+\end{figure}
 
 このような結果より、3点の疑問点もできた。
 \begin{itemize}
